@@ -1,0 +1,463 @@
+/* ==========================================================================
+   1. VARIABLES GLOBALES Y RESET
+   ========================================================================== */
+:root {
+    /* Tipografía Global */
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
+    
+    /* Espaciados Universales */
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 2rem;
+    --space-lg: 4rem;
+    --space-xl: 6rem;
+    
+    /* Transiciones */
+    --trans-fast: 0.3s ease;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+img { max-width: 100%; display: block; object-fit: cover; }
+a { text-decoration: none; transition: color var(--trans-fast); }
+h1, h2, h3 { font-family: var(--font-heading); font-weight: 600; line-height: 1.2; }
+
+/* ==========================================================================
+   2. SISTEMA DE TEMAS POR ZONA (Identidades diferenciadas)
+   ========================================================================== */
+/* TEMA BASE (Header, Hero, Footer) */
+.theme-base, .site-header, .site-footer {
+    --bg-color: #FAFAFA;
+    --text-main: #1A1A1A;
+    --text-muted: #666666;
+    --accent-color: #1A1A1A;
+}
+
+/* TEMA WEB (Tono técnico, limpio, sutil azul/gris) */
+.theme-web {
+    --bg-color: #F4F6F8;
+    --text-main: #1E293B;
+    --text-muted: #475569;
+    --accent-color: #2563EB;
+    --card-bg: #FFFFFF;
+}
+
+/* TEMA MARCA (Tono cálido, creativo, arena/terracota) */
+.theme-brand {
+    --bg-color: #FDFBF7;
+    --text-main: #2C241B;
+    --text-muted: #736759;
+    --accent-color: #B45309;
+    --card-bg: #FFFFFF;
+}
+
+/* TEMA FOTO (Tono oscuro, cinematográfico, inmersivo) */
+.theme-photo {
+    --bg-color: #121212;
+    --text-main: #F9FAFB;
+    --text-muted: #9CA3AF;
+    --accent-color: #FFFFFF;
+    --card-bg: #1F2937;
+}
+
+/* Aplicación automática de colores según la zona */
+.zone {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    padding: var(--space-xl) 0;
+}
+
+.zone-header { margin-bottom: var(--space-lg); }
+.zone-header h2 { font-size: 2.5rem; color: var(--text-main); margin-bottom: var(--space-xs); }
+.zone-header p { font-size: 1.1rem; color: var(--text-muted); }
+.text-center { text-align: center; }
+
+/* ==========================================================================
+   3. NAVEGACIÓN
+   ========================================================================== */
+.site-header {
+    position: sticky;
+    top: 0;
+    background-color: rgba(250, 250, 250, 0.95);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    color: var(--text-main);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+}
+
+.logo { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 600; color: var(--text-main); }
+.main-nav ul { list-style: none; display: flex; gap: var(--space-md); }
+.main-nav a { font-size: 0.9rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); }
+.main-nav a:hover { color: var(--text-main); }
+
+/* ==========================================================================
+   4. INICIO & SOBRE MÍ
+   ========================================================================== */
+.hero {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    padding: var(--space-xl) 0 var(--space-md) 0;
+}
+
+.hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); margin-bottom: var(--space-sm); }
+.hero .subtitle { font-size: clamp(1.1rem, 2vw, 1.3rem); color: var(--text-muted); max-width: 800px; margin-bottom: var(--space-lg); }
+
+.about-text {
+    max-width: 800px;
+    font-size: 1.05rem;
+    border-left: 2px solid var(--accent-color);
+    padding-left: var(--space-md);
+    color: var(--text-muted);
+}
+
+/* ==========================================================================
+   5. ZONA: DESARROLLO WEB
+   ========================================================================== */
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+}
+
+.tech-tag {
+    background-color: var(--card-bg);
+    color: var(--text-main);
+    padding: 0.5rem 1.2rem;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-md);
+}
+
+.project-card {
+    background: var(--card-bg);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+    transition: transform var(--trans-fast);
+}
+
+.project-card:hover { transform: translateY(-5px); }
+.project-card img { height: 200px; width: 100%; border-bottom: 1px solid rgba(0,0,0,0.05); }
+
+.card-content { padding: var(--space-md); }
+.card-content h3 { margin-bottom: var(--space-xs); font-size: 1.3rem; }
+.card-content p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: var(--space-sm); }
+.tech-used { font-size: 0.8rem; font-weight: 600; color: var(--accent-color); }
+
+/* ==========================================================================
+   6. ZONA: DISEÑO DE MARCA
+   ========================================================================== */
+.brand-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-md);
+}
+
+.brand-card {
+    position: relative;
+    background: var(--card-bg);
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+/* El proyecto feature (Sistema Integral) ocupa el ancho completo en pantallas grandes */
+@media (min-width: 900px) {
+    .brand-card.feature { grid-column: 1 / -1; display: grid; grid-template-columns: 2fr 1fr; align-items: center; }
+    .brand-card.feature img { height: 100%; min-height: 400px; }
+}
+
+.brand-card img { height: 250px; width: 100%; }
+.brand-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: var(--bg-color);
+    color: var(--text-main);
+    z-index: 2;
+}
+
+/* Colores sutiles para los distintivos de categoría de marca */
+.badge-system { border-bottom: 2px solid var(--accent-color); }
+.badge-redesign { border-bottom: 2px solid #52525B; }
+.badge-new-id { border-bottom: 2px solid #10B981; }
+
+/* ==========================================================================
+   7. ZONA: FOTOGRAFÍA
+   ========================================================================== */
+.photo-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+}
+
+.photo-project {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+    align-items: center;
+}
+
+.photo-project figure { position: relative; overflow: hidden; }
+.photo-project img { 
+    width: 100%; 
+    height: auto; 
+    max-height: 60vh; 
+    transition: transform 0.6s ease;
+}
+
+.photo-project:hover img { transform: scale(1.03); }
+
+.photo-context {
+    padding: var(--space-md) 0;
+}
+
+.photo-context h3 { font-size: 2rem; margin-bottom: var(--space-xs); }
+.photo-meta {
+    display: block;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent-color);
+    margin-bottom: var(--space-sm);
+}
+
+.photo-context p { color: var(--text-muted); font-size: 1.1rem; }
+
+@media (min-width: 900px) {
+    .photo-project { grid-template-columns: 3fr 2fr; gap: var(--space-lg); }
+    .photo-project.reverse { grid-template-columns: 2fr 3fr; }
+    .photo-project.reverse figure { order: 2; }
+    .photo-project.reverse .photo-context { order: 1; text-align: right; }
+}
+
+/* ==========================================================================
+   8. FOOTER Y RESPONSIVE
+   ========================================================================== */
+.site-footer {
+    background-color: var(--bg-color);
+    color: var(--text-muted);
+    text-align: center;
+    padding: var(--space-md) 0;
+    font-size: 0.9rem;
+    border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+/* Nuevo contenedor para agrupar las tecnologías y el botón en los proyectos web */
+.project-meta { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+.tech-used { 
+    font-size: 0.8rem; 
+    font-weight: 600; 
+    color: var(--accent-color); 
+}
+
+/* Estilos para el botón de enlace externo */
+.project-link {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--bg-color);
+    background-color: var(--text-main);
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: all var(--trans-fast);
+}
+
+.project-link:hover {
+    background-color: var(--accent-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Estilos para la sección Sobre Mí expandida */
+.expanded-about {
+    max-width: 900px; /* Un poco más ancho para acomodar la lectura cómoda */
+    margin-bottom: var(--space-xl);
+}
+
+.about-title {
+    font-size: 3rem;
+    color: var(--text-main);
+    margin-bottom: var(--space-md);
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.about-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background-color: var(--accent-color);
+}
+
+.expanded-about p {
+    margin-bottom: 1.5rem;
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+.about-list {
+    margin: 1.5rem 0 2rem 1.5rem;
+    color: var(--text-muted);
+}
+
+.about-list li {
+    margin-bottom: 1rem;
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+.about-list strong {
+    color: var(--text-main);
+}
+
+.brand-card figure, 
+.brand-card .img-container {
+    aspect-ratio: 16 / 9; /* Mantiene una proporción constante en desktop y móvil */
+    width: 100%;
+    overflow: hidden;
+    background-color: #F8F9FA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.brand-card img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.brand-card img {
+    width: 100%;
+    height: 240px;
+    object-fit: contain; /* Muestra el logo completo sin recortarlo */
+    background-color: #0E0E10; /* Fondo oscuro integrado para destacar el logo */
+    padding: 1.5rem; /* Margen interno para que el logo "respire" y no choque con el badge */
+    box-sizing: border-box;
+    transition: transform var(--trans-fast);
+}
+
+/* Nuevo Tema y Estilos para la sección de Diseños Personales (style.css) */
+.theme-personal {
+    --bg-color: #0F172A;
+    --text-main: #F8FAFC;
+    --text-muted: #94A3B8;
+    --accent-color: #38BDF8;
+    --card-bg: #1E293B;
+}
+
+.personal-designs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-md);
+}
+
+.personal-card {
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: var(--space-md);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform var(--trans-fast);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.personal-card:hover {
+    transform: translateY(-5px);
+}
+
+.personal-card h3 {
+    color: var(--text-main);
+    margin-bottom: var(--space-xs);
+    font-size: 1.3rem;
+}
+
+.personal-card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: var(--space-md);
+}
+
+@media (min-width: 900px) {
+    .brand-card.feature { 
+        grid-column: 1 / -1; 
+        display: grid; 
+        grid-template-columns: 1.1fr 1fr; 
+        align-items: center; 
+    }
+    
+    .brand-card.feature img { 
+        height: 100%; 
+        min-height: 280px;
+        width: 100%;
+        object-fit: contain;
+        background-color: #0E0E10;
+        padding: 2rem; /* Espacio elegante alrededor del logo en escritorio */
+    }
+}
+
+@media (max-width: 768px) {
+    .main-nav { display: none; /* Ideal para reemplazar con un menú hamburguesa CSS */ }
+    .zone { padding: var(--space-lg) 0; }
+    .hero h1 { font-size: 2.5rem; }
+    h2 { font-size: 2rem; }
+}
